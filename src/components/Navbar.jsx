@@ -33,7 +33,7 @@ const Navbar = () => {
 
       {/* Main Menu */}
       <div
-        className={`fixed bg-[#002626]/95 text-white flex justify-center items-center text-[40px] tracking-[1px] transition-all duration-500 ease-in-out ${
+        className={`fixed bg-[#002626]/95 text-white flex justify-center items-center text-[20px] tracking-[1px] transition-all duration-500 ease-in-out ${
           isOpen ? "w-full" : "w-0"
         } h-[100vh] overflow-hidden`}
       >
