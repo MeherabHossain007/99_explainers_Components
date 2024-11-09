@@ -1,14 +1,29 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
+import Logo from "./Logo"; // Ensure this imports your animated Logo component
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showLogo, setShowLogo] = useState(false);
 
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setShowLogo(true);
+      } else {
+        setShowLogo(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const menuItems = [
     { title: "Home", href: "#" },
@@ -63,6 +78,15 @@ const Navbar = () => {
         </ul>
       </div>
 
+      {/* Logo Animation on Scroll */}
+      <div
+        className={`fixed top-0 left-0 right-0 z-40 flex justify-center transform transition-transform duration-700 ${
+          showLogo ? "translate-y-0 droplet-bounce" : "-translate-y-full"
+        }`}
+      >
+        <Logo />
+      </div>
+
       {/* Heading and Some Text */}
       <div className="flex items-center h-screen m-auto max-w-[70ch] px-6">
         <div>
@@ -71,20 +95,44 @@ const Navbar = () => {
           </h1>
           <span className="font-semibold">
             <p className="mb-[15px]">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde numquam
-              odit fuga nulla dicta quasi!
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde
+              numquam odit fuga nulla dicta quasi!
             </p>
             <p className="mb-[15px]">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde numquam
-              odit fuga nulla dicta quasi!
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde
+              numquam odit fuga nulla dicta quasi!
             </p>
             <p className="mb-[15px]">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde numquam
-              odit fuga nulla dicta quasi!
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde
+              numquam odit fuga nulla dicta quasi!
             </p>
           </span>
         </div>
       </div>
+
+      <style jsx>{`
+        .droplet-bounce {
+          animation: dropletBounce 1s cubic-bezier(0.3, 1.2, 0.2, 1) forwards;
+        }
+
+        @keyframes dropletBounce {
+          0% {
+            transform: translateY(-100%);
+          }
+          40% {
+            transform: translateY(20%);
+          }
+          60% {
+            transform: translateY(-10%);
+          }
+          80% {
+            transform: translateY(5%);
+          }
+          100% {
+            transform: translateY(0%);
+          }
+        }
+      `}</style>
     </>
   );
 };
